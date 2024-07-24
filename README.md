@@ -24,7 +24,10 @@
 - -numpy=1.24.1
 - matplotlib=3.7.5
 
-Or ```pip install -r requirements.txt```.
+Create the environment by:
+```commandline 
+pip install -r requirement.txt
+```
 
 ## 🎥 Dataset 
 ### Download dataset
