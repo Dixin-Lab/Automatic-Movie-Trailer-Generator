@@ -18,6 +18,13 @@
 ├── segmentation
 └── utils
 ```
+## ⚙️Main Dependencies
+- python=3.8.19
+- pytorch=2.3.0+cu121
+- -numpy=1.24.1
+- matplotlib=3.7.5
+
+Or ```pip install -r requirements.txt```.
 
 ## 🎥 Dataset 
 ### Download dataset
