@@ -11,8 +11,8 @@
 |   |   ├── movie_shot_embs (npy format, segmented movie shots)
 |   |   └── audio_movie_alignments (json format, alignment relation of audio and movie shot indices)
 │   └── MV dataset
-|   |   ├── audio_shot_embs (npy format, segmented audio shots)
-|   |   └──  movie_shot_embs (npy format, segmented movie shots)
+|       ├── audio_shot_embs (npy format, segmented audio shots)
+|       └──  movie_shot_embs (npy format, segmented movie shots)
 ├── alignment
 ├── feature_extratction
 ├── segmentation
