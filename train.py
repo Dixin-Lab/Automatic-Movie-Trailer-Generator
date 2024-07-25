@@ -30,7 +30,7 @@ def get_args():
     parser.add_argument("--trailer_audio_base", type=str, default='..../CMTD/audio_shot_embs')
     parser.add_argument("--trailer_shot_base", type=str, default='..../CMTD/trailer_shot_embs')
     parser.add_argument("--movie_shot_base", type=str, default='..../CMTD/movie_shot_embs')
-    parser.add_argument("--mv_pretrained_trailer_audio_base", type=str, default=''..../MV/audio_shot_embs'')
+    parser.add_argument("--mv_pretrained_trailer_audio_base", type=str, default='..../MV/audio_shot_embs')
     parser.add_argument("--mv_pretrained_movie_shot_base", type=str, default='..../MV/movie_shot_embs')
     args = parser.parse_args()
 
