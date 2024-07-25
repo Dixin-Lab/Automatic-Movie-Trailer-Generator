@@ -35,6 +35,7 @@ def get_args():
     parser.add_argument("--test_movie_shot_base", type=str, default='..../CMTD/test_movie_shot_embs')
     parser.add_argument("--movie_shot_info_path", type=str, default='..../CMTD/scene_test_movies')
     parser.add_argument("--audio_bar_info_path", type=str, default='..../CMTD/ruptures_audio_segmentation.json')
+    parser.add_argument("--model_path", type=str, default='..../network_500.net')
     args = parser.parse_args()
     return args
 
@@ -74,7 +75,7 @@ def trailer_generator(video_num):
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     device = 'cuda'
 
-    net_path = '..../network_500.net'
+    model_path = args.model_path
     test_movie_shot_base = args.test_movie_shot_embs
     test_trailer_audio_base_rups = args.test_audio_shot_embs
 
