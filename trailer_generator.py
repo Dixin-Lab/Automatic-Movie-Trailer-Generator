@@ -31,7 +31,8 @@ def get_args():
     parser.add_argument('--delta', default=1.0, type=float, help='relaxtion parameter')
     parser.add_argument('--lamda', default=1.0, type=float, help='parameter controlling the regularity of distance for pi')
     parser.add_argument('--eta', default=1.0, type=float, help='weight of duration matrix')
-    parser.add_argument("--exp", type=str, default='', help="save dir name")
+    parser.add_argument("--test_trailer_audio_base", type=str, default='..../CMTD/test_audio_shot_embs')
+    parser.add_argument("--test_movie_shot_base", type=str, default='..../CMTD/test_movie_shot_embs')
     args = parser.parse_args()
     return args
 
