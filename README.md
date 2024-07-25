@@ -12,11 +12,12 @@
 |   |   |   ├── movie_shot_embs (npy format, segmented movie shots)
 |   |   |   ├── trailer_shot_embs (npy format, segmented trailer shots)
 |   |   |   └── audio_movie_alignments (json format, alignment relation of audio and movie shot indices)
-|   |   └── test dataset
-|   |       ├── audio_shot_embs (npy format, segmented audio shots)
-|   |       ├── movie_shot_embs (npy format, segmented movie shots)
-|   |       ├── scene_test_movies (json format, test movie shot duration information)
-|   |       └── ruptures_audio_segmentation.json (json format, test audio shot duration information)
+|   |   ├── test dataset
+|   |   |    ├── audio_shot_embs (npy format, segmented audio shots)
+|   |   |    ├── movie_shot_embs (npy format, segmented movie shots)
+|   |   |    ├── scene_test_movies (json format, test movie shot duration information)
+|   |   |    └── ruptures_audio_segmentation.json (json format, test audio shot duration information)
+|   |   └── network_500.net
 │   └── MV
 |       ├── audio_shot_embs (npy format, segmented music shots)
 |       └── movie_shot_embs (npy format, segmented video shots)
@@ -46,6 +47,8 @@ We construct a new public comprehensive movie-trailer dataset (CMTD) for movie t
 
 It is worth noting that due to movie copyright issues, we cannot provide the original movies. The dataset only provides the visual and acoustic features extracted by ImageBind after we segmented the movie shot and audio shot using BaSSL.
 
+### Model ckpt
+We provide the trained model ```network_500.net``` under the CMTD dataset folder.
 
 ### Movie Shot Segmentation 
 We use [BaSSL](https://github.com/kakaobrain/bassl) to split each movie into movie shots and scenes, the codes can be found in ```./segmentation/scene_segmentation_bassl.py```. 
