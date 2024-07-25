@@ -51,7 +51,27 @@ save_scene_dir_base = '' # save directory of scene json files
 finished_files = os.listdir(save_scene_dir_base)
 ```
 
-During training phase, 
+### Segment audio based on movie shots
+During the training phase, in order to obtain aligned movie shots and audio shots from each official trailer, we segment the official trailer audio according to the duration of the movie shots.
+The codes can be found in ```./segmentation/seg_audio_based_on_shots.py```. 
+If you want to perform audio segmentation based on your movies shot segmentation, please be aware of modifying the path for reading the audio and the path for saving the segmentation results in the code.
+
+```commandline
+seg_json = dict()  # save the segmentation info of audio 
+base = ''
+save_seg_json_name = 'xxx.json'
+save_bar_base = ""
+scene_trailer_base = ""
+audio_base = ""
+```
+
 
 ### Music Shot Segmentation 
-We use [Ruptures](https://github.com/deepcharles/ruptures) to split music into movie shots and scenes, the codes can be found in ```./segmentation/scene_segmentation_bassl.py```. 
+We use [Ruptures](https://github.com/deepcharles/ruptures) to split music into movie shots and scenes, the codes can be found in ```./segmentation/scene_segmentation_ruptures.py```. 
+If you want to perform shot segmentation on your local audio, please be aware of modifying the path for reading the audio and the path for saving the segmentation results in the code.
+
+```commandline
+audio_file_path = ''  # music data path
+save_result_base = ''  # save segmentation result
+```
+During testing phase, 
