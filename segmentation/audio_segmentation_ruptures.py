@@ -8,11 +8,14 @@ import json
 import os
 # os.environ["CUDA_VISIBLE_DEVICES"] = x
 
+# This code is modified based on the Ruptures code from https://github.com/deepcharles/ruptures.
+
 def fig_ax(figsize=(30, 5), dpi=150):
     """Return a (matplotlib) figure and ax objects with given size."""
     return plt.subplots(figsize=figsize, dpi=dpi)
 
-audio_file_path = "audio file path"
+audio_file_path = ''  # music data path
+save_result_base = '' # save segmentation result
 
 audio_path = os.path.join(audio_file_path)
 signal, sampling_rate = librosa.load(audio_path)
@@ -52,3 +55,6 @@ _ = librosa.display.specshow(
     
 bkps_times_list = bkps_times.tolist()
 print("audio segmentation is : {}".format(index, bkps_times_list))
+
+with open(save_result_base, 'w') as f:
+    json.dump(bkps_times_list, f)
