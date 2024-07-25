@@ -27,11 +27,11 @@ def get_args():
                         help='parameter controlling the regularity of distance for pi')
     parser.add_argument('--n_epochs', type=int, default=4000)
     parser.add_argument("--exp", type=str, default='', help="save dir name")
-    parser.add_argument("--trailer_audio_base", type=str, default='path of trailer audio base')
-    parser.add_argument("--trailer_shot_base", type=str, default='path of trailer shot base')
-    parser.add_argument("--movie_shot_base", type=str, default='path of movie shot base')
-    parser.add_argument("--mv_pretrained_trailer_audio_base", type=str, default='path of mv dataset trailer audio base')
-    parser.add_argument("--mv_pretrained_movie_shot_base", type=str, default='path of mv dataset movie shot base')
+    parser.add_argument("--trailer_audio_base", type=str, default='..../CMTD/audio_shot_embs')
+    parser.add_argument("--trailer_shot_base", type=str, default='..../CMTD/trailer_shot_embs')
+    parser.add_argument("--movie_shot_base", type=str, default='..../CMTD/movie_shot_embs')
+    parser.add_argument("--mv_pretrained_trailer_audio_base", type=str, default=''..../MV/audio_shot_embs'')
+    parser.add_argument("--mv_pretrained_movie_shot_base", type=str, default='..../MV/movie_shot_embs')
     args = parser.parse_args()
 
     return args
