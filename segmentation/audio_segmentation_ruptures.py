@@ -6,7 +6,7 @@ import os
 import ruptures as rpt
 import json
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+# os.environ["CUDA_VISIBLE_DEVICES"] = x
 
 def fig_ax(figsize=(30, 5), dpi=150):
     """Return a (matplotlib) figure and ax objects with given size."""
