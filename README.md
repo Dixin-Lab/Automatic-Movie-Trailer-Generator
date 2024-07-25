@@ -65,7 +65,6 @@ scene_trailer_base = ""
 audio_base = ""
 ```
 
-
 ### Music Shot Segmentation 
 We use [Ruptures](https://github.com/deepcharles/ruptures) to split music into movie shots and scenes, the codes can be found in ```./segmentation/scene_segmentation_ruptures.py```. 
 If you want to perform shot segmentation on your local audio, please be aware of modifying the path for reading the audio and the path for saving the segmentation results in the code.
@@ -74,4 +73,4 @@ If you want to perform shot segmentation on your local audio, please be aware of
 audio_file_path = ''  # music data path
 save_result_base = ''  # save segmentation result
 ```
-During testing phase, 
+During testing phase, given a movie and a piece of music, we use BaSSL to segment the movie shots and Ruptures to segment the music shots.
