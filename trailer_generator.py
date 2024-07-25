@@ -165,6 +165,6 @@ def trailer_generator(video_num):
 
 
 if __name__ == "__main__":
-   movie_idx = 2 
+   movie_idx = 2  # test movie index
    trailer_generator(movie_idx)
 
