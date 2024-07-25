@@ -78,4 +78,4 @@ During testing phase, given a movie and a piece of music, we use BaSSL to segmen
 
 
 ### Feature Extraction
-We use [ImageBind](https://github.com/facebookresearch/ImageBind) to extract visual features of movie shots and acoustic features of audio shots.
+We use [ImageBind](https://github.com/facebookresearch/ImageBind) to extract visual features of movie shots and acoustic features of audio shots, the codes can be found in ```./feature_extraction/```. 
