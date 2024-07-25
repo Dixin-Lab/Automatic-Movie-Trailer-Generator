@@ -23,6 +23,10 @@
 - pytorch=2.3.0+cu121
 - numpy=1.24.1
 - matplotlib=3.7.5
+- scikit-learn=1.3.2
+- scipy=1.10.1
+- sk-video=1.1.10
+- ffmpeg=1.4
 
 Or create the environment by:
 ```commandline 
