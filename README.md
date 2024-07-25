@@ -2,7 +2,7 @@
 [ACM MM 2024 paper] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
 ![scheme](img/ipot_schemes.png)
 
-## ⏳Project Struture
+## ⏳ Project Struture
 ```
 .
 ├── data
@@ -18,7 +18,7 @@
 ├── segmentation
 └── utils
 ```
-## ⚙️Main Dependencies
+## ⚙️ Main Dependencies
 - python=3.8.19
 - pytorch=2.3.0+cu121
 - numpy=1.24.1
@@ -79,3 +79,12 @@ During testing phase, given a movie and a piece of music, we use BaSSL to segmen
 
 ### Feature Extraction
 We use [ImageBind](https://github.com/facebookresearch/ImageBind) to extract visual features of movie shots and acoustic features of audio shots, the codes can be found in ```./feature_extraction/```. 
+
+
+## 🏃‍♂️ Training
+After downloading and placing the dataset correctly, you can use the codes to train the model: 
+```
+python train.py
+```
+
+## 🎬 Trailer Generation
