@@ -101,7 +101,7 @@ python trailer_generator.py
 ```
 
 ## 📖Citation
-Please cite our paper if you use this code or any of the models:
+Please cite our paper if you use this code or CMTD and MV dataset:
 ```
 
 ```
