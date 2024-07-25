@@ -72,8 +72,8 @@ def trailer_generator(video_num):
     device = 'cuda'
 
     net_path = '..../network_500.net'
-    test_movie_shot_base = '..../test_movie_shot_embs'
-    test_trailer_audio_base_rups = '..../test_trailer_MTwV_rup_2s_embs'
+    test_movie_shot_base = args.test_movie_shot_embs
+    test_trailer_audio_base_rups = args.test_audio_shot_embs
 
     model = VA_encoder_self_cross_sigmoid(input_dim=args.input_size, model_dim=args.hidden_size).to(device)
     model.load_state_dict(torch.load(net_path))
