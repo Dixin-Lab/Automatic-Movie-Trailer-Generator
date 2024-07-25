@@ -15,7 +15,7 @@ def fig_ax(figsize=(30, 5), dpi=150):
     return plt.subplots(figsize=figsize, dpi=dpi)
 
 audio_file_path = ''  # music data path
-save_result_base = '' # save segmentation result
+save_result_base = ''  # save segmentation result
 
 audio_path = os.path.join(audio_file_path)
 signal, sampling_rate = librosa.load(audio_path)
