@@ -5,14 +5,21 @@
 ## ⏳ Project Struture
 ```
 .
-├── data
-│   ├── CMTD dataset
-|   |   ├── audio_shot_embs (npy format, segmented audio shots)
-|   |   ├── movie_shot_embs (npy format, segmented movie shots)
-|   |   └── audio_movie_alignments (json format, alignment relation of audio and movie shot indices)
-│   └── MV dataset
-|       ├── audio_shot_embs (npy format, segmented audio shots)
-|       └──  movie_shot_embs (npy format, segmented movie shots)
+├── dataset
+│   ├── CMTD
+|   |   ├── training dataset
+|   |   |   ├── audio_shot_embs (npy format, segmented audio shots)
+|   |   |   ├── movie_shot_embs (npy format, segmented movie shots)
+|   |   |   ├── trailer_shot_embs (npy format, segmented trailer shots)
+|   |   |   └── audio_movie_alignments (json format, alignment relation of audio and movie shot indices)
+|   |   └── test dataset
+|   |       ├── audio_shot_embs (npy format, segmented audio shots)
+|   |       ├── movie_shot_embs (npy format, segmented movie shots)
+|   |       ├── scene_test_movies (json format, test movie shot duration information)
+|   |       └── ruptures_audio_segmentation.json (json format, test audio shot duration information)
+│   └── MV
+|       ├── audio_shot_embs (npy format, segmented music shots)
+|       └── movie_shot_embs (npy format, segmented video shots)
 ├── alignment
 ├── feature_extratction
 ├── segmentation
@@ -34,7 +41,7 @@ pip install -r requirement.txt
 ```
 
 ## 🎥 Dataset 
-###  Dataset Download
+###  Dataset structure
 We construct a new public comprehensive movie-trailer dataset (CMTD) for movie trailer generation and future video understanding tasks. We train and evaluate various trailer generators on this dataset. Please download the CMTD dataset from these links: [CMTD](https://drive.google.com/drive/folders/1qYKi9nsrHUiOZIAvA-uTFOsOj0rEAc26?usp=drive_link). We also provide a music video dataset (MV) for pre-training process. Please download the MV dataset from these links: [MV](https://drive.google.com/drive/folders/1FROsoTIi4lhgSHfLFJ4phE7ZFxj3udcP?usp=drive_link).
 
 It is worth noting that due to movie copyright issues, we cannot provide the original movies. The dataset only provides the visual and acoustic features extracted by ImageBind after we segmented the movie shot and audio shot using BaSSL.
