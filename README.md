@@ -24,7 +24,7 @@
 - numpy=1.24.1
 - matplotlib=3.7.5
 
-Create the environment by:
+Or create the environment by:
 ```commandline 
 pip install -r requirement.txt
 ```
