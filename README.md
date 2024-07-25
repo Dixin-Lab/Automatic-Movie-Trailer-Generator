@@ -95,3 +95,13 @@ python train.py
 ```
 
 ## 🎬 Trailer Generation
+After processing your own movies or downloading and placing data in test dataset correctly, you can use and modify the codes to generate the trailer: 
+```
+python trailer_generator.py
+```
+
+## 📖Citation
+Please cite our paper if you use this code or any of the models:
+```
+
+```
