@@ -33,6 +33,8 @@ def get_args():
     parser.add_argument('--eta', default=1.0, type=float, help='weight of duration matrix')
     parser.add_argument("--test_trailer_audio_base", type=str, default='..../CMTD/test_audio_shot_embs')
     parser.add_argument("--test_movie_shot_base", type=str, default='..../CMTD/test_movie_shot_embs')
+    parser.add_argument("--movie_shot_info_path", type=str, default='..../CMTD/scene_test_movies')
+    parser.add_argument("--audio_bar_info_path", type=str, default='..../CMTD/ruptures_audio_segmentation.json')
     args = parser.parse_args()
     return args
 
@@ -114,7 +116,7 @@ def trailer_generator(video_num):
 
         m_shot_choose = m_shot_emb[new_mu_top_indices]
         choose_movie_shot_duration = []
-        movie_shot_info_path = "..../scene_test_movies"
+        movie_shot_info_path = args.movie_shot_info_path
         with open(os.path.join(movie_shot_info_path, "{}.json".format(video_num)),'r') as f:
             movie_shot_info = json.load(f)
         movie_shot_duration_info = movie_shot_info["shot_meta_list"]
@@ -123,7 +125,7 @@ def trailer_generator(video_num):
             choose_movie_shot_duration.append(time_to_seconds(value["timestamps"][1])-time_to_seconds(value["timestamps"][0]))
         
         rup_audio_bar_duration = []
-        audio_bar_info_path = "..../ruptures_audio_segmentation_test_MT_2s.json"
+        audio_bar_info_path = args.audio_bar_info_path
         with open(audio_bar_info_path,'r') as f:
             audio_bar_info = json.load(f)
         current_audio_bar_info = audio_bar_info["{}".format(video_num)]
