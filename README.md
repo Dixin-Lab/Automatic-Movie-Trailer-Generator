@@ -17,7 +17,9 @@
 |   |   |    ├── movie_shot_embs (npy format, segmented movie shots)
 |   |   |    ├── scene_test_movies (json format, test movie shot duration information)
 |   |   |    └── ruptures_audio_segmentation.json (json format, test audio shot duration information)
-|   |   └── network_500.net
+|   |   ├── network_500.net
+|   |   ├── metadata.json
+|   |   └── tp_annotation.json
 │   └── MV
 |       ├── audio_shot_embs (npy format, segmented music shots)
 |       └── movie_shot_embs (npy format, segmented video shots)
