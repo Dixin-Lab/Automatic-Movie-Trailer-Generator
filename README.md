@@ -1,5 +1,5 @@
 # Automatic-Movie-Trailer-Generator
-[ACM MM 2024 paper] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
+[ACMMM 2024] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
 ![scheme](img/ipot_schemes.png)
 
 ## ⏳ Project Struture
@@ -44,6 +44,7 @@ pip install -r requirement.txt
 ```
 
 ## 🎥 Dataset 
+![scheme](img/dataset.png)
 ###  Dataset structure
 We construct a new public comprehensive movie-trailer dataset (CMTD) for movie trailer generation and future video understanding tasks. We train and evaluate various trailer generators on this dataset. Please download the CMTD dataset from these links: [CMTD](https://drive.google.com/drive/folders/1qYKi9nsrHUiOZIAvA-uTFOsOj0rEAc26?usp=drive_link). We also provide a music video dataset (MV) for pre-training process. Please download the MV dataset from these links: [MV](https://drive.google.com/drive/folders/1FROsoTIi4lhgSHfLFJ4phE7ZFxj3udcP?usp=drive_link), MV videos are a subset of [SymMV dataset](https://github.com/zhuole1025/SymMV).
 
@@ -104,6 +105,9 @@ After processing your own movies or downloading and placing data in test dataset
 ```
 python trailer_generator.py
 ```
+
+![scheme](img/visualization1.png)
+![scheme](img/visualization2.png)
 
 ## 📖Citation
 Please cite our paper if you use this code or CMTD and MV dataset:
