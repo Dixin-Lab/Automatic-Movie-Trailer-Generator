@@ -1,5 +1,20 @@
-# Automatic-Movie-Trailer-Generator
-[ACMMM 2024] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
+# [ACMMM 2024] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <a href="http://arxiv.org/abs/2407.19456" style="margin: 0 2px;">
+    <img src='https://img.shields.io/badge/arXiv-2407.15886-red?style=flat&logo=arXiv&logoColor=red' alt='arxiv'>
+  </a>
+  <a href="https://github.com/Dixin-Lab/Automatic-Movie-Trailer-Generator" style="margin: 0 2px;">
+    <img src='https://img.shields.io/badge/GitHub-Repo-blue?style=flat&logo=GitHub' alt='GitHub'>
+  </a>
+  <a href='https://hhhh1138.github.io/project-page-trailer-generator/' style="margin: 0 2px;">
+    <img src='https://img.shields.io/badge/Webpage-Project-silver?style=flat&logo=&logoColor=orange' alt='webpage'>
+  </a>
+<!--   <a href="https://github.com/Zheng-Chong/CatVTON/LICENCE" style="margin: 0 2px;">
+    <img src='https://img.shields.io/badge/License-CC BY--NC--SA--4.0-lightgreen?style=flat&logo=Lisence' alt='License'>
+  </a> -->
+</div>
+
 ![scheme](img/ipot_schemes.png)
 
 ## ⏳ Project Struture
