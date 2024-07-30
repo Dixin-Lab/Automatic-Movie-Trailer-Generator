@@ -109,6 +109,8 @@ python trailer_generator.py
 ![scheme](img/visualization1.png)
 ![scheme](img/visualization2.png)
 
+**More results can be found in the [project page](https://hhhh1138.github.io/project-page-trailer-generator/) !**
+
 ## 📖Citation
 Please cite our paper if you use this code or CMTD and MV dataset:
 ```
