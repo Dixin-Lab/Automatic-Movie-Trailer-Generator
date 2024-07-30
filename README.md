@@ -1,4 +1,4 @@
-# [ACMMM 2024] An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
+# An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
 
 <div style="display: flex; justify-content: center; align-items: center;">
   <a href="http://arxiv.org/abs/2407.19456" style="margin: 0 2px;">
