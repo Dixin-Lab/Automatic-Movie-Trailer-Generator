@@ -136,6 +136,7 @@ class _EncoderBlock_cross(nn.Module):
 
         # Layers to apply in between the main layers
         self.norm1 = nn.LayerNorm(input_dim)
+        self.norm2 = nn.LayerNorm(input_dim)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x, y, mask=None):
@@ -264,6 +265,7 @@ class _EncoderBlock(nn.Module):
 
         # Layers to apply in between the main layers
         self.norm1 = nn.LayerNorm(input_dim)
+        self.norm2 = nn.LayerNorm(input_dim)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x, mask=None):
@@ -437,7 +439,7 @@ class VA_encoder_self_cross_sigmoid(nn.Module):
         self.cross_attention_video = Cross_attention(model_dim=model_dim)  # CA
         self.cross_attention_audio = Cross_attention(model_dim=model_dim)  # CA
         self.mu_linear = nn.Linear(model_dim, 1)  # Through W, output distribution μ
-        self.mu_sigmoid = nn.Sigmoid(dim=1)
+        self.mu_sigmoid = nn.Sigmoid()
 
     def forward(self, x, y):
         v = self.video_encoder(x)
