@@ -103,7 +103,7 @@ def trailer_generator(video_num):
         m_shot_emb = normalize(m_shot_emb, p=2.0, dim=1)
         t_bar_emb_rups = normalize(t_bar_emb_rups, p=2.0, dim=1)
 
-        m_shot_emb, mu, t_bar_emb_rups, m_shot_self_emb, t_bar_self_emb = model(m_shot_emb, t_bar_emb_rups)
+        m_shot_emb, mu, t_bar_emb_rups = model(m_shot_emb, t_bar_emb_rups)
 
         # normalize embeddings
         m_shot_emb = normalize(m_shot_emb, p=2.0, dim=1)
