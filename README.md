@@ -136,15 +136,20 @@ python trailer_generator.py
 
 When given a long video (e.g., a full movie, movie_name.mp4) and a piece of music (e.g., audio_name.wav), 
 
-1) Resize the input video to 320p ``` python ./utils/rescale_movies_ffmpeg.py```, and generate the intra-frame coding version of the input video to make the segmented movie shots more accurate ``` python ./utils/ffmpeg_intra.py```.
+1) Resize the input video to 320p, and generate the intra-frame coding version of the input video to make the segmented movie shots more accurate. 
+``` python ./utils/rescale_movies_ffmpeg.py; python ./utils/ffmpeg_intra.py```
 
-2) Segment the input 320p video into movie shots through BaSSL ``` python ./segmentation/scene_segmentation_bassl.py```.
+2) Segment the input 320p video into movie shots through BaSSL.
+``` python ./segmentation/scene_segmentation_bassl.py```
 
-3) Segment the input music into music shots through ruptures ``` python ./segmentation/audio_segmentation_ruptures.py```.
+3) Segment the input music into music shots through ruptures.
+``` python ./segmentation/audio_segmentation_ruptures.py```
 
-4) Encode the movie shots into shot-level visual embeddings through ImageBind ``` python ./feature_extraction/extract_video_embs.py```.
+4) Encode the movie shots into shot-level visual embeddings through ImageBind.
+``` python ./feature_extraction/extract_video_embs.py```
 
-5) Encode the music shots into shot-level acoustic embeddings through ImageBind ``` python ./feature_extraction/extract_audio_embs.py```.
+5) Encode the music shots into shot-level acoustic embeddings through ImageBind.
+``` python ./feature_extraction/extract_audio_embs.py```
 
 6) With the processed embeddings, we can just run ``` python trailer_generator.py``` to generate the personalized trailers. 
 
