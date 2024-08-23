@@ -1,30 +1,26 @@
+import os 
+import os.path as osp 
+import argparse 
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
 from modelscope.outputs import OutputKeys
-import os
 import json
 import time 
 
-# CUDA_VISIBLE_DEVICES=x python scene_segmentation_bassl.py 
+# segment the input long video into multiple shots based on the actions and scene changes. 
 
-movie_dataset_base = '' # video data directory
-movies = os.listdir(movie_dataset_base)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser() 
+    parser.add_argument("--input_video_path", type=str)
+    parser.add_argument("--save_scene_dir", type=str, default='./')
 
-save_scene_dir_base = '' # save directory of scene json files 
-finished_files = os.listdir(save_scene_dir_base)
+    video = args.input_video_path.split('/')[-1]
+    video_name = video[:-4] # remove the ext .mp4 
+    save_scene_path = osp.join(args.save_scene_dir, video_name+'.json')
 
-for movidx in movies: 
-    print(movidx)
-    movie_name = str(movidx)[:-4]
-
-    movie_dir = os.path.join(movie_dataset_base, movie_name + '.mp4')
-    saved_file_name = movie_name + '.json' 
-    if saved_file_name in finished_files:
-        continue
-    
     video_scene_seg = pipeline(Tasks.movie_scene_segmentation, model='damo/cv_resnet50-bert_video-scene-segmentation_movienet')
-    result = video_scene_seg(movie_dir)
+    result = video_scene_seg(args.input_video_path) 
 
-    save_scene_dir_file = os.path.join(save_scene_dir_base, movie_name + '.json')
-    with open(save_scene_dir_file, 'w') as f:
+    # save the scene split json file.
+    with open(save_scene_path, 'w') as f:
         json.dump(result, f)
