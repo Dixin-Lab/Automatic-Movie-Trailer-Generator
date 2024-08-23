@@ -26,6 +26,7 @@ if __name__ == "__main__":
     # rename the input video to '{video_name}-raw.mp4'
     new_input_video_path = osp.join(base, video_name+'-raw.mp4')
     cmd = f'mv {args.input_video_path} {new_input_video_path}'
+    os.system(cmd) 
 
     # the rescaled 320p video will be renamed to '{video_name}.mp4'
     rescaled_video_file = video_name + '.mp4' 
