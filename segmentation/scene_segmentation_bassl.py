@@ -13,6 +13,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser() 
     parser.add_argument("--input_video_path", type=str)
     parser.add_argument("--save_scene_dir", type=str, default='./')
+    args = parser.parse_args()
 
     video = args.input_video_path.split('/')[-1]
     video_name = video[:-4] # remove the ext .mp4 
