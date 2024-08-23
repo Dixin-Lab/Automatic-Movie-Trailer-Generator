@@ -134,11 +134,11 @@ python trailer_generator.py
 
 ## 💃🏻 Have a try! (steps by steps)
 
-When given a long video (e.g., a full movie, movie_name.mp4) and a piece of music (e.g., audio_name.wav), 
+When given a long video (e.g., a full movie, video_name.mp4) and a piece of music (e.g., audio_name.wav), 
 
 1) Resize the input video to 320p, and generate the intra-frame coding version of the input video to make the segmented movie shots more accurate. 
 
-``` python ./utils/rescale_movies_ffmpeg.py; python ./utils/ffmpeg_intra.py```
+``` python ./utils/intra_video_ffmpeg.py; python ./utils/rescale_movies_ffmpeg.py```
 
 2) Segment the input 320p video into movie shots through BaSSL.
 
@@ -158,6 +158,14 @@ When given a long video (e.g., a full movie, movie_name.mp4) and a piece of musi
 
 6) With the processed embeddings, we can just run ``` python trailer_generator.py``` to generate the personalized trailers. 
 
+**Note: the (4) and (5) steps, the python files should be placed at the ImageBind repo (https://github.com/facebookresearch/ImageBind), e.g., at './ImageBind/' directory.**
+
+---
+
+You can also just run the provided ```run.py``` to achieve one-step inference (including all above six steps).  
+```
+python run.py --input_video_path video_path --input_audio_path audio_path
+```
 
 
 ## 📖Citation
