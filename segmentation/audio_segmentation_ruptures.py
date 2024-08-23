@@ -38,6 +38,7 @@ if __name__ == "__main__":
     parser.add_argument("--input_audio_path", type=str)
     parser.add_argument("--save_scene_dir", type=str, default='./')
     parser.add_argument("--save_bar_dir", type=str, default='./seg_audio_shots')
+    args = parser.parse_args()
 
     os.makedirs(args.save_scene_dir, exist_ok=True)
     os.makedirs(args.save_bar_dir, exist_ok=True)
