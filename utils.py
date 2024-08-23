@@ -3,14 +3,8 @@ import numpy as np
 import os
 import json
 import cv2
-import wave
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import skvideo.io
 import ffmpeg
 import torch.nn.functional as F
-from sklearn.preprocessing import StandardScaler
 import os.path as osp
 
 
@@ -132,17 +126,18 @@ def get_duration_from_ffmpeg(filename):
 
 
 def seg_video_by_timestamp(movidx, j, l_t, duration_t, save_seg_shots_base2):
-    movie_base = '..../test_movies_intra'
-    src_path = osp.join(movie_base, movidx + '.mp4')
-
+    movie_base = './'
+    src_path = osp.join(movie_base, movidx + '-intra.mp4')
     tgt_path = osp.join(save_seg_shots_base2, str(j) + '.mp4')
+
     cmd = 'ffmpeg -i {} -ss {} -t {} -c copy {} -y'.format(src_path, l_t, duration_t, tgt_path)
     # cmd = 'ffmpeg -y -i {} -ss {} -t {} -c:a aac -c:v libx264 {}'.format(src_path,l_t,duration_t,tgt_path)
     os.system(cmd)
+
     print('movie {}: {}-th shot segmented done.'.format(movidx, str(j)))
 
 
-def video_seg_concate(movidx, alignment, sig_score):
+def video_seg_concate(args, movidx, audioidx, alignment, sig_score):
     # 1. Depend on the one-to-one alignment, find the right corresponding timestamps for each audio shot,
     # 2. segment raw movie based on timestamps, derive multiple video shots 
     # 3. add fade in and fade out for each shot 
@@ -151,24 +146,25 @@ def video_seg_concate(movidx, alignment, sig_score):
     # # Input: (Suppose I moive shots, J trailer audio shots)
     # alignment: [J,1]: [a_i -> m_j] 
     # sig_score: [I,1] 
-    # movidx: \in [1,2,...,8]
 
     movidx = str(movidx)
+    audioidx = str(audioidx)
 
     # save the segmented shots based on audio
-    save_seg_shots_base = '..../test_seg_shots'
+    save_seg_shots_base = './test_seg_shots'
     # save the segmented shots based on audio (fade in and fade out)
-    save_seg_shots_fade_base = '..../test_seg_shots_fade'
-    output_video_base = '..../output-video'
+    save_seg_shots_fade_base = './test_seg_shots_fade'
+    output_video_base = './output-video'
     save_seg_shots_base2 = osp.join(save_seg_shots_base, movidx)
     os.makedirs(save_seg_shots_base2, exist_ok=True)
+    os.makedirs(output_video_base, exist_ok=True)
 
-    scene_movie_base = '..../scene_test_movies'
+    scene_movie_base = args.movie_shot_info_path
     scene_movie_info_path = osp.join(scene_movie_base, movidx + '.json')
     with open(scene_movie_info_path, 'r') as f:
         scene_movie_info = json.load(f)
 
-    bar_seg_info_path = '..../ruptures_audio_segmentation_test_MT_2s.json'
+    bar_seg_info_path = f'{audioidx}.json'
     with open(bar_seg_info_path, 'r') as f:
         bar_seg_info = json.load(f)
 
@@ -178,6 +174,7 @@ def video_seg_concate(movidx, alignment, sig_score):
 
     # 1. Depend on the one-to-one alignment, find the right corresponding timestamps for each audio shot,
     # 2. segment raw movie based on timestamps, derive multiple video shots 
+    print(f'find corresponding video shots based on computed alignment, and segment these shots from intra-version video.')
     J = len(audio_length)
     I = len(shot_length)
 
@@ -191,7 +188,6 @@ def video_seg_concate(movidx, alignment, sig_score):
             t1_seconds = time_to_seconds(t1)
             mid_seconds = (t0_seconds + t1_seconds) / 2.0
             l_seconds = mid_seconds - audio_length[j] / 2.0
-            # r_seconds = mid_seconds + audio_length[j]/2.0
             l_t = seconds_to_time(l_seconds)
             duration = audio_length[j]
             duration_t = seconds_to_time(duration)
@@ -241,13 +237,12 @@ def video_seg_concate(movidx, alignment, sig_score):
             seg_video_by_timestamp(movidx, j, l_t, duration_t, save_seg_shots_base2)
 
     print('begin deal with fade in and fade out.')
-
     # 3. add fade in and fade out for each shot 
-    output_file = 'output-test-' + str(movidx) + '-3s-fade.mp4'
-    tmp_video_file = 'output-test-' + str(movidx) + '-3s-fade-silent.mp4'
+    output_file = 'output-' + str(movidx) + '-' + str(audioidx) +'-trailer.mp4'
+    tmp_video_file = 'output-' + str(movidx) + '-' + str(audioidx)  + '-trailer-silent.mp4'
     shot_base = os.path.join(save_seg_shots_base, str(movidx))
     shot_idx_list = range(J)
-    tmp_txt_file_path = '/home/yutong2/workspace/Sidan/tmp{}.txt'.format(movidx)
+    tmp_txt_file_path = 'tmp{}.txt'.format(movidx)
 
     # # make each shot in shot_idx_list in style of fade in and out
     shot_tmp_base = os.path.join(save_seg_shots_fade_base, str(movidx))
