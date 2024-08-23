@@ -31,7 +31,7 @@ if __name__ == "__main__":
     # the rescaled 320p video will be renamed to '{video_name}.mp4'
     rescaled_video_file = video_name + '.mp4' 
     rescaled_video_path = osp.join(base, rescaled_video_file) 
-    cmd = f'python ./utils/rescale_movies_ffmpeg.py --input_video_path {args.input_video_path} --output_video_path {rescaled_video_path}' 
+    cmd = f'python ./utils/rescale_movies_ffmpeg.py --input_video_path {new_input_video_path} --output_video_path {rescaled_video_path}' 
     os.system(cmd) 
 
     # 2. Segment the input 320p video into movie shots through BaSSL. 
