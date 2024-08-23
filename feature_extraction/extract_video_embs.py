@@ -14,6 +14,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser() 
     parser.add_argument("--save_shot_base", type=str default='./results/shot_split_video')
     parser.add_argument("--save_video_embs_dir", type=str, default='./video_embs') 
+    args = parser.parse_args()
 
     os.makedirs(args.save_video_embs_dir, exist_ok=True) 
     video_name = args.save_shot_base.split('/')[-1] 
