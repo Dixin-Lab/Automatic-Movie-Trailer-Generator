@@ -14,6 +14,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser() 
     parser.add_argument("--save_bar_base", type=str default='./seg_audio_shots')
     parser.add_argument("--save_audio_embs_dir", type=str, default='./audio_embs') 
+    args = parser.parse_args()
 
     os.makedirs(args.save_audio_embs_dir, exist_ok=True) 
     audio_name = args.save_audio_base.split('/')[-1] 
