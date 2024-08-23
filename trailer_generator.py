@@ -45,8 +45,8 @@ def get_args():
     # revise these paths with your personalized paths
     parser.add_argument("--test_trailer_audio_base", type=str, default='audio_embs')
     parser.add_argument("--test_movie_shot_base", type=str, default='video_embs')
-    parser.add_argument("--movie_shot_info_path", type=str, default='./')
-    parser.add_argument("--audio_bar_info_path", type=str, default='./1.json')
+    parser.add_argument("--movie_shot_info_path", type=str, help='the json file that recording the segmentation info')
+    parser.add_argument("--audio_bar_info_path", type=str, help='the json file that recording the segmentation info')
     parser.add_argument("--video_name", type=str)
     parser.add_argument("--audio_name", type=str)
 
@@ -102,7 +102,7 @@ def trailer_generator():
         m_shot_choose = m_shot_emb[new_mu_top_indices]
         choose_movie_shot_duration = []
         movie_shot_info_path = args.movie_shot_info_path
-        with open(os.path.join(movie_shot_info_path, "{}.json".format(video_num)),'r') as f:
+        with open(movie_shot_info_path,'r') as f:
             movie_shot_info = json.load(f)
         movie_shot_duration_info = movie_shot_info["shot_meta_list"]
         choose_movie_shot_duration_info = [movie_shot_duration_info[index] for index in mu_top_indices]
