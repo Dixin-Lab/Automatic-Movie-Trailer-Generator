@@ -1,7 +1,5 @@
 # An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation
 
-**TL;DR**: Given a raw video and a piece of music, we can generate an audio-visual coherent and appealing video trailer/montage. 
-
 <div style="display: flex; justify-content: center; align-items: center;">
   <a href="http://arxiv.org/abs/2407.19456" style="margin: 0 2px;">
     <img src='https://img.shields.io/badge/arXiv-2407.15886-red?style=flat&logo=arXiv&logoColor=red' alt='arxiv'>
@@ -16,6 +14,8 @@
     <img src='https://img.shields.io/badge/License-CC BY--NC--SA--4.0-lightgreen?style=flat&logo=Lisence' alt='License'>
   </a> -->
 </div>
+
+**TL;DR**: Given a raw video and a piece of music, we can generate an audio-visual coherent and appealing video trailer/montage. 
 
 ![scheme](img/ipot_schemes.png)
 
@@ -123,22 +123,29 @@ After processing your own movies or downloading and placing data in test dataset
 python trailer_generator.py
 ```
 
-## 💃🏻 Have a try! (steps by steps)
-```
-When given a long video (e.g., a full movie, movie_name.mp4) and a piece of music (e.g., audio_name.wav), 
-
-1) Resize the input video to 320p ``` python ./utils/rescale_movies_ffmpeg.py```, and generate the intra-frame coding version of the input video to make the segmented movie shots more accurate ``` python ./utils/ffmpeg_intra.py```.
-
-2)
-
-```
-
-
-
 ![scheme](img/visualization1.png)
 ![scheme](img/visualization2.png)
 
 **More results can be found in the [project page](https://hhhh1138.github.io/project-page-trailer-generator/) !**
+
+
+## 💃🏻 Have a try! (steps by steps)
+
+When given a long video (e.g., a full movie, movie_name.mp4) and a piece of music (e.g., audio_name.wav), 
+
+1) Resize the input video to 320p ``` python ./utils/rescale_movies_ffmpeg.py```, and generate the intra-frame coding version of the input video to make the segmented movie shots more accurate ``` python ./utils/ffmpeg_intra.py```.
+
+2) Segment the input 320p video into movie shots through BaSSL ``` python ./segmentation/scene_segmentation_bassl.py```.
+
+3) Segment the input music into music shots through ruptures ``` python ./segmentation/audio_segmentation_ruptures.py```.
+
+4) Encode the movie shots into shot-level visual embeddings through ImageBind ``` python ./feature_extraction/extract_video_embs.py```.
+
+5) Encode the music shots into shot-level acoustic embeddings through ImageBind ``` python ./feature_extraction/extract_audio_embs.py```.
+
+6) With the processed embeddings, we can just run ``` python trailer_generator.py``` to generate the personalized trailers. 
+
+
 
 ## 📖Citation
 Please cite our paper if you use this code or CMTD and MV dataset:
