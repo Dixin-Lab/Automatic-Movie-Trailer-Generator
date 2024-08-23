@@ -64,4 +64,4 @@ if __name__ == "__main__":
     audio_seg_info = osp.join(base, f'{audio_name}.json')
     video_seg_info = osp.join(base, f'{video_name}.json')
     cmd = f'python trailer_generator.py --video_name {video_name} --audio_name {audio_name} --movie_shot_info_path {video_seg_info} --audio_bar_info_path {audio_seg_info}'
-    
+    os.system(cmd) 
