@@ -3,41 +3,14 @@ import numpy as np
 import os
 import json
 import cv2
-import wave
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import skvideo.io
-import ffmpeg
 import torch.nn.functional as F
 from model import VA_encoder_self_cross_sigmoid
 import os.path as osp
 import argparse
-import torch.optim as optim
 import random
 from torch.nn.functional import normalize
-from sinkhorn import SinkhornDistance
-from scipy.optimize import linear_sum_assignment
 import ot
 from utils import video_seg_concate
-
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--device", type=str, default="cuda")
-    parser.add_argument("--gpu", type=str, default='5')
-    parser.add_argument('--input_size', type=int, default=1024)
-    parser.add_argument('--hidden_size', type=int, default=256)
-    parser.add_argument('--delta', default=1.0, type=float, help='relaxtion parameter')
-    parser.add_argument('--lamda', default=1.0, type=float, help='parameter controlling the regularity of distance for pi')
-    parser.add_argument('--eta', default=1.0, type=float, help='weight of duration matrix')
-    parser.add_argument("--test_trailer_audio_base", type=str, default='..../CMTD/test_audio_shot_embs')
-    parser.add_argument("--test_movie_shot_base", type=str, default='..../CMTD/test_movie_shot_embs')
-    parser.add_argument("--movie_shot_info_path", type=str, default='..../CMTD/scene_test_movies')
-    parser.add_argument("--audio_bar_info_path", type=str, default='..../CMTD/ruptures_audio_segmentation.json')
-    parser.add_argument("--model_path", type=str, default='..../network_500.net')
-    args = parser.parse_args()
-    return args
 
 
 def time_to_seconds(time_str):
@@ -59,52 +32,63 @@ def cost_matrix(x, y, p=2):
     return C
 
 
-def min_distance_assignment(distances):
-    row_ind, col_ind = linear_sum_assignment(distances)
-    total_distance = distances[row_ind, col_ind].sum()
-    return total_distance, list(zip(row_ind, col_ind))
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--gpu", type=str, default='0')
+    parser.add_argument('--input_size', type=int, default=1024)
+    parser.add_argument('--hidden_size', type=int, default=256)
+    parser.add_argument('--delta', default=1.0, type=float, help='relaxtion parameter')
+    parser.add_argument('--lamda', default=1.0, type=float, help='parameter controlling the regularity of distance for pi')
+    parser.add_argument('--eta', default=1.0, type=float, help='weight of duration matrix')
+
+    # revise these paths with your personalized paths
+    parser.add_argument("--test_trailer_audio_base", type=str, default='audio_embs')
+    parser.add_argument("--test_movie_shot_base", type=str, default='video_embs')
+    parser.add_argument("--movie_shot_info_path", type=str, default='./')
+    parser.add_argument("--audio_bar_info_path", type=str, default='./1.json')
+    parser.add_argument("--video_name", type=str)
+    parser.add_argument("--audio_name", type=str)
+
+    parser.add_argument("--model_path", type=str, default='network_500.net')
+    args = parser.parse_args()
+    return args
 
 
-def normalize_list(lst):
-    total_sum = sum(lst)
-    return [x / total_sum for x in lst]
-
-
-def trailer_generator(video_num):
+def trailer_generator():
     args = get_args()
+    video_num = args.video_name 
+    audio_num = args.audio_name
+
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     device = 'cuda'
 
     model_path = args.model_path
     test_movie_shot_base = args.test_movie_shot_embs
-    test_trailer_audio_base_rups = args.test_audio_shot_embs
+    test_trailer_audio_base_rups = args.test_trailer_audio_base
 
     model = VA_encoder_self_cross_sigmoid(input_dim=args.input_size, model_dim=args.hidden_size).to(device)
     model.load_state_dict(torch.load(net_path))
     model.eval()
 
     test_video_file = "{}.npy".format(video_num)
+    test_audio_file = "{}.npy".format(audio_num)
 
     with torch.no_grad():
-
+        # read in embeddings
         m_shot_emb = torch.Tensor(np.load(osp.join(test_movie_shot_base, test_video_file))).to(device)
-        # set a initial range for the movie shots: 
-        # e.g, [2%, 90%]
-        shot_l = int(m_shot_emb.size(0)*0.02)
-        shot_r = int(m_shot_emb.size(0)*0.90)
-        new_movie_shots_index = torch.arange(shot_l, shot_r).to(device)
-
-        # check mu based on rup RTS features
-        t_bar_emb_rups = torch.Tensor(np.load(osp.join(test_trailer_audio_base_rups, test_video_file))).to(device)
-        # print("rups number: {}".format(t_bar_emb_rups.size(0)))
-        # print('m shot emb size: {}'.format(m_shot_emb.size()))
-
+        t_bar_emb_rups = torch.Tensor(np.load(osp.join(test_trailer_audio_base_rups, test_audio_file))).to(device)
         # normalize embeddings
         m_shot_emb = normalize(m_shot_emb, p=2.0, dim=1)
         t_bar_emb_rups = normalize(t_bar_emb_rups, p=2.0, dim=1)
 
-        m_shot_emb, mu, t_bar_emb_rups = model(m_shot_emb, t_bar_emb_rups)
+        # set a initial range for the movie shots: 
+        # e.g, [2%, 90%], it will consider the frames in the [2%, 90%] of the raw input to construct the trailer.
+        shot_l = int(m_shot_emb.size(0)*0.0)
+        shot_r = int(m_shot_emb.size(0)*1.0)
+        new_movie_shots_index = torch.arange(shot_l, shot_r).to(device)
 
+        m_shot_emb, mu, t_bar_emb_rups = model(m_shot_emb, t_bar_emb_rups)
         # normalize embeddings
         m_shot_emb = normalize(m_shot_emb, p=2.0, dim=1)
         t_bar_emb_rups = normalize(t_bar_emb_rups, p=2.0, dim=1)
@@ -159,16 +143,11 @@ def trailer_generator(video_num):
         max_indices = np.argmax(G0, axis=0)
         m_shot_choose_indices = new_mu_top_indices[max_indices]
         m_shot_choose_indices_ls = m_shot_choose_indices.tolist()
-        print("movie {} generated trailer index: {}".format(video_num, m_shot_choose_indices_ls))
+        print("Based on {}, the index of the video shots to construct the trailer is: {}".format(video_num, m_shot_choose_indices_ls))
 
-        print(len(m_shot_choose_indices_ls))
-        print(len(mu_np))
-        print('generate trailers begin.')
-
-        video_seg_concate(video_num, np.array(m_shot_choose_indices_ls), mu_np)
+        print('Trailer generation begin.')
+        video_seg_concate(args, video_num, audio_num, np.array(m_shot_choose_indices_ls), mu_np)
 
 
 if __name__ == "__main__":
-   movie_idx = 2  # your test movie index
-   trailer_generator(movie_idx)
-
+   trailer_generator()
