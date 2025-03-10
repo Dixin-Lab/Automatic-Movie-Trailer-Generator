@@ -171,10 +171,11 @@ python run.py --input_video_path video_path --input_audio_path audio_path
 ## 📖Citation
 Please cite our paper if you use this code or CMTD and MV dataset:
 ```
-@article{wang2024inverse,
-  title={An Inverse Partial Optimal Transport Framework for Music-guided Movie Trailer Generation},
+@inproceedings{wang2024inverse,
+  title={An Inverse Partial Optimal Transport Framework for Music-guided Trailer Generation},
   author={Wang, Yutong and Zhu, Sidan and Xu, Hongteng and Luo, Dixin},
-  journal={arXiv preprint arXiv:2407.19456},
+  booktitle={Proceedings of the 32nd ACM International Conference on Multimedia},
+  pages={9739--9748},
   year={2024}
 }
 ```
