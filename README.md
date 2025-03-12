@@ -129,7 +129,7 @@ python trailer_generator.py
 ![scheme](img/visualization1.png)
 ![scheme](img/visualization2.png)
 
-**More results can be found in the [project page](https://hhhh1138.github.io/project-page-trailer-generator/) !**
+**More results can be found in the [project page](https://dixin-lab.github.io/project-page-trailer-generator/) !**
 
 
 ## 💃🏻 Have a try! (steps by steps)
